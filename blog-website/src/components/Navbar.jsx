@@ -49,16 +49,16 @@ const Navbar = () => {
             </li>)
           }
         </ul>
-        {/* Menu Icons */}
-        <div className='text-white lg:flex gap-4 items-center hidden'>
-          <a href="/" className='hover:text-orange-500'><FaFacebook /></a>
-          <a href="/" className='hover:text-orange-500'><FaInstagram /></a>
-          <a href="/" className='hover:text-orange-500'><FaTwitter /></a>
-          <button onClick={openModal} className='bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white
-           hover:text-orange-500 transition-all duration-200 ease-in'>Log in
-          </button>
-        </div>
-        
+       {/* Menu Icons */}
+<div className='text-white md:flex gap-4 items-center hidden'>
+  <a href="/" className='hover:text-orange-500 lg:flex md:hidden'><FaFacebook /></a>
+  <a href="/" className='hover:text-orange-500 lg:flex md:hidden'><FaInstagram /></a>
+  <a href="/" className='hover:text-orange-500 lg:flex md:hidden'><FaTwitter /></a>
+  <button onClick={openModal} className='bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white
+   hover:text-orange-500 transition-all duration-200 ease-in'>Log in
+  </button>
+</div>
+         
         {/* Modal Components */}
         <Modal isOpen={isModalOpen} onClose={closeModal} />
 
@@ -72,17 +72,21 @@ const Navbar = () => {
         </div>
       </nav>
       {/* Menu Items only for mobile*/}
-      <div>
-
-        <ul className={`md:hidden gap-12 text-lg block space-y-4 px-4 py-6 mt-14 bg-white 
-      ${isMenuOpen ? "fixed top-0 left-0 w-full transition-all ease-out duration-150" : "hidden"}`}>
-          {
-            navItems.map(({ path, link }) => <li className='text-black' key={path}>
-              <NavLink onClick={toggleMenu} to={path}>{link}</NavLink>
-            </li>)
-          }
-        </ul>
-      </div>
+<div>
+  <ul className={`md:hidden gap-12 text-lg block space-y-4 px-4 py-6 mt-14 bg-white 
+    ${isMenuOpen ? "fixed top-0 left-0 w-full transition-all ease-out duration-150" : "hidden"}`}>
+    {
+      navItems.map(({ path, link }) => <li className='text-black' key={path}>
+        <NavLink onClick={toggleMenu} to={path}>{link}</NavLink>
+      </li>)
+    }
+    <li>
+      <button onClick={() => { openModal(); toggleMenu(); }} className='w-full bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white
+        hover:text-orange-500 transition-all duration-200 ease-in'>Log in
+      </button>
+    </li>
+  </ul>
+</div>
     </header>
   )
 }
