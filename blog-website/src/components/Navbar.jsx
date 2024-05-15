@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import Modal from './Modal';
 
 // React Icons
 import { FaBars, FaFacebook, FaInstagram, FaTwitter, FaXmark } from 'react-icons/fa6'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,6 +20,16 @@ const Navbar = () => {
     { path: '/blogs', link: 'Blogs' },
     { path: '/contact', link: 'Contact' },
   ]
+
+  // Modal Details
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
+
   return (
     <header className='bg-black text-white fixed top-0 left-0 right-0'>
       <nav className='px-4  py-4 max-w-7xl mx-auto flex justify-between items-center'>
@@ -28,12 +40,12 @@ const Navbar = () => {
           {
             navItems.map(({ path, link }) => <li className='text-white' key={path}>
               <NavLink className={({ isActive, isPending }) =>
-                      isActive
-                        ? "active"
-                        : isPending
-                        ? "pending"
-                        : ""
-                    } to={path}>{link}</NavLink>
+                isActive
+                  ? "active"
+                  : isPending
+                    ? "pending"
+                    : ""
+              } to={path}>{link}</NavLink>
             </li>)
           }
         </ul>
@@ -42,10 +54,14 @@ const Navbar = () => {
           <a href="/" className='hover:text-orange-500'><FaFacebook /></a>
           <a href="/" className='hover:text-orange-500'><FaInstagram /></a>
           <a href="/" className='hover:text-orange-500'><FaTwitter /></a>
-          <button className='bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white
+          <button onClick={openModal} className='bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white
            hover:text-orange-500 transition-all duration-200 ease-in'>Log in
           </button>
         </div>
+        
+        {/* Modal Components */}
+        <Modal isOpen={isModalOpen} onClose={closeModal} />
+
         {/* Mobile menu button, display mobile screen */}
         <div className='md:hidden'>
           <button onClick={toggleMenu} className='cursor-pointer'>
